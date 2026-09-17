@@ -101,6 +101,40 @@
     max-width:15ch;
   }
   h1 .accent{color:var(--accent);}
+
+  .typewriter{
+    min-height: calc(1.05em * 2);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+  }
+  .tw-word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(6px);
+    animation: twWordIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .tw-word.tw-accent{color:var(--accent);}
+  .tw-word.tw-out{
+    animation: twWordOut 0.22s ease forwards;
+  }
+  @keyframes twWordIn{
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes twWordOut{
+    to{opacity:0;transform:translateY(-4px);}
+  }
+  .tw-cursor{
+    display:inline-block;
+    color:var(--accent);
+    font-weight:400;
+    margin-left:2px;
+    animation: twBlink 0.9s steps(1) infinite;
+  }
+  @keyframes twBlink{
+    0%, 45%{opacity:1;}
+    50%, 100%{opacity:0;}
+  }
   .hero .lede{
     font-size:1.1rem;
     color:var(--text-dim);
@@ -269,6 +303,14 @@
 
   .status--dim{opacity:0.85;}
 
+  .hero-name{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.95rem;
+    letter-spacing:0.03em;
+    color:var(--text-dim);
+    margin:0 0 14px;
+  }
+
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .btn{transition:none;}
@@ -276,6 +318,8 @@
     .seq-main{animation:none;opacity:1;}
     .marquee-track{animation:none;}
     .reveal{opacity:1;transform:none;transition:none;}
+    .tw-cursor{display:none;}
+    .tw-word{animation:none;opacity:1;transform:none;}
   }
 
   #particles{
@@ -293,7 +337,7 @@
 
 <header>
   <div class="nav-inner">
-    <span class="mark">ak_</span>
+    <span class="mark">Ahmed Khatib</span>
     <nav class="nav-links">
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
@@ -313,7 +357,8 @@
       </div>
       <div class="seq-main" id="seqMain">
         <div class="status status--dim"><span class="dot"></span>Cairo, Egypt — open to work</div>
-        <h1>I build systems that have to <span class="accent">work</span>, and systems that have to <span class="accent">think</span>.</h1>
+        <p class="hero-name">Ahmed Khatib</p>
+        <h1 id="typewriter" class="typewriter"><span id="typewriterText"></span><span class="tw-cursor" id="twCursor">|</span></h1>
         <p class="lede">
           An ERP/Odoo developer and full-stack software engineer with 2.5+ years delivering
           enterprise applications across regulated healthcare, fintech, and ERP sectors — including
@@ -577,6 +622,127 @@
   <span>Ahmed Khatib — Cairo, Egypt</span>
   <span>2026</span>
 </footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var textEl = document.getElementById('typewriterText');
+  var cursorEl = document.getElementById('twCursor');
+  if(!textEl || !cursorEl) return;
+
+  // Each sentence: array of {w: word, accent: bool}
+  var sentences = [
+    [
+      {w:"I"},{w:"build"},{w:"systems"},{w:"that"},{w:"have"},{w:"to"},{w:"work,",a:true},
+      {w:"and"},{w:"systems"},{w:"that"},{w:"have"},{w:"to"},{w:"think.",a:true}
+    ],
+    [
+      {w:"I"},{w:"treat"},{w:"correctness"},{w:"as"},{w:"non-negotiable,",a:true},
+      {w:"not"},{w:"a"},{w:"nice-to-have."}
+    ],
+    [
+      {w:"From"},{w:"NHS"},{w:"records"},{w:"to"},{w:"ERP"},{w:"workflows"},{w:"—"},
+      {w:"I"},{w:"build"},{w:"what"},{w:"has"},{w:"to"},{w:"hold",a:true},{w:"up."}
+    ],
+    [
+      {w:"Two"},{w:"and"},{w:"a"},{w:"half"},{w:"years."},{w:"Zero"},
+      {w:"critical"},{w:"incidents.",a:true}
+    ]
+  ];
+
+  if(reduceMotion){
+    var first = sentences[0];
+    textEl.innerHTML = first.map(function(t){
+      return '<span class="tw-word' + (t.a ? ' tw-accent' : '') + '">' + t.w + '</span>';
+    }).join(' ');
+    cursorEl.style.display = 'none';
+    return;
+  }
+
+  var sIndex = 0;
+  var WORD_IN_DELAY = 170;   // slower, smoother reveal between words
+  var WORD_IN_DUR = 500;
+  var HOLD_TIME = 3600;      // longer pause on the finished sentence
+  var WORD_OUT_STAGGER = 55; // gentler teardown pacing
+  var WORD_OUT_DUR = 220;
+
+  function placeCursorAfter(node){
+    if(node && node.nextSibling){
+      textEl.insertBefore(cursorEl, node.nextSibling);
+    } else if(node){
+      textEl.appendChild(cursorEl);
+    } else {
+      textEl.appendChild(cursorEl);
+    }
+  }
+
+  function typeSentence(sentence, done){
+    textEl.innerHTML = '';
+    textEl.appendChild(cursorEl); // cursor leads from the very start
+    var spans = [];
+
+    sentence.forEach(function(t, i){
+      setTimeout(function(){
+        var span = document.createElement('span');
+        span.className = 'tw-word' + (t.a ? ' tw-accent' : '');
+        span.textContent = t.w;
+        // insert the word just before the cursor, then move cursor right after it
+        textEl.insertBefore(span, cursorEl);
+        if(i < sentence.length - 1){
+          textEl.insertBefore(document.createTextNode(' '), cursorEl);
+        }
+        placeCursorAfter(cursorEl.previousSibling);
+        spans.push(span);
+      }, i * WORD_IN_DELAY);
+    });
+
+    var totalIn = sentence.length * WORD_IN_DELAY + WORD_IN_DUR;
+    setTimeout(done, totalIn + HOLD_TIME);
+  }
+
+  function deleteSentence(done){
+    var spans = Array.prototype.slice.call(textEl.querySelectorAll('.tw-word'));
+    var n = spans.length;
+    if(n === 0){ done(); return; }
+
+    for(var i = 0; i < n; i++){
+      (function(idx){
+        var fromEnd = n - 1 - idx; // remove last word first
+        var span = spans[fromEnd];
+        var delay = idx * WORD_OUT_STAGGER;
+        setTimeout(function(){
+          span.classList.add('tw-out');
+          // move the cursor to just before this word as it starts leaving,
+          // so the cursor retreats alongside the deletion
+          textEl.insertBefore(cursorEl, span);
+          setTimeout(function(){
+            if(span.parentNode) span.parentNode.removeChild(span);
+            // also drop the trailing space text node right after cursor if present
+            if(cursorEl.nextSibling && cursorEl.nextSibling.nodeType === 3){
+              cursorEl.parentNode.removeChild(cursorEl.nextSibling);
+            }
+          }, WORD_OUT_DUR);
+        }, delay);
+      })(i);
+    }
+
+    var totalOut = n * WORD_OUT_STAGGER + WORD_OUT_DUR;
+    setTimeout(done, totalOut + 250);
+  }
+
+  function cycle(){
+    typeSentence(sentences[sIndex], function(){
+      deleteSentence(function(){
+        sIndex = (sIndex + 1) % sentences.length;
+        cycle();
+      });
+    });
+  }
+
+  // Sync with the intro sequence hold (seq-main reveal delay is 2.3s)
+  setTimeout(cycle, 2400);
+})();
+</script>
 
 <script>
 (function(){
