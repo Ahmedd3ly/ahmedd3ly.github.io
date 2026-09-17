@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Khatib — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B;
+    --bg-raised:#121214;
+    --text:#EDEDED;
+    --text-dim:#8B8B90;
+    --accent:#6EE7B7;
+    --accent-dim:#2C4A3E;
+    --line:#242426;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk',-apple-system,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#04140F;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px;}
+
+  /* nav */
+  header{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:880px;margin:0 auto;padding:0 28px;
+    height:60px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-inner .mark{font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--text);}
+  .nav-links{display:flex;gap:26px;font-size:0.85rem;}
+  .nav-links a{text-decoration:none;color:var(--text-dim);transition:color .15s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* hero */
+  .hero{padding:100px 0 0;min-height:78vh;display:flex;align-items:center;}
+  .hero-sequence{position:relative;width:100%;}
+
+  .seq-intro{
+    display:flex;flex-direction:column;
+    animation: introHold 2.6s ease forwards;
+  }
+  .seq-intro .intro-name{
+    font-weight:700;
+    font-size:clamp(2.3rem, 6vw, 3.8rem);
+    line-height:1.05;letter-spacing:-0.02em;
+    margin:0;
+  }
+  @keyframes introHold{
+    0%{opacity:0;transform:translateY(8px);}
+    12%{opacity:1;transform:translateY(0);}
+    68%{opacity:1;transform:translateY(0);}
+    100%{opacity:0;transform:translateY(-10px);visibility:hidden;position:absolute;}
+  }
+
+  .seq-main{
+    opacity:0;
+    animation: mainReveal 1.1s ease forwards;
+    animation-delay: 2.3s;
+  }
+  @keyframes mainReveal{
+    0%{opacity:0;transform:translateY(14px);}
+    100%{opacity:1;transform:translateY(0);}
+  }
+
+  .status{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.8rem;color:var(--text-dim);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    margin-bottom:28px;
+  }
+  .status .dot{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+  }
+  h1{
+    font-weight:700;
+    font-size:clamp(2.3rem, 6vw, 3.8rem);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    margin:0 0 24px;
+    max-width:15ch;
+  }
+  h1 .accent{color:var(--accent);}
+  .hero .lede{
+    font-size:1.1rem;
+    color:var(--text-dim);
+    max-width:58ch;
+    margin:0 0 36px;
+  }
+  .hero .lede strong{color:var(--text);font-weight:600;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-size:0.92rem;font-weight:500;
+    padding:13px 26px;border-radius:8px;
+    background:var(--accent);color:#04140F;
+    text-decoration:none;
+    border:1px solid var(--accent);
+    transition:opacity .15s, transform .15s;
+  }
+  .btn:hover{opacity:0.88;transform:translateY(-1px);}
+  .btn.ghost{background:transparent;color:var(--text);border-color:var(--line);}
+  .btn.ghost:hover{border-color:var(--text-dim);opacity:1;}
+
+  /* marquee */
+  .marquee{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    padding:22px 0;
+    margin-top:70px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    gap:14px;
+    animation: marqueeScroll 28s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.88rem;
+    color:var(--text-dim);
+    white-space:nowrap;
+    padding:8px 18px;
+    border:1px solid var(--line);
+    border-radius:100px;
+  }
+  @keyframes marqueeScroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+
+  /* scroll reveal */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* sections */
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;color:var(--accent);
+    margin-bottom:10px;
+  }
+  h2{
+    font-size:1.7rem;font-weight:600;letter-spacing:-0.01em;
+    margin:0 0 40px;
+  }
+
+  /* convergence */
+  .convergence{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .conv-col{padding:28px 26px;}
+  .conv-col.left{border-right:1px solid var(--line);}
+  .conv-col .label{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;
+    color:var(--text-dim);margin-bottom:14px;
+  }
+  .conv-col ul{list-style:none;margin:0;padding:0;font-size:1.02rem;}
+  .conv-col li{padding:5px 0;color:var(--text);}
+  .conv-center{display:flex;align-items:center;justify-content:center;padding:0 20px;}
+  .conv-center .node{
+    width:12px;height:12px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 16px var(--accent);
+  }
+  @media(max-width:640px){
+    .convergence{grid-template-columns:1fr;}
+    .conv-col.left{border-right:none;border-bottom:1px solid var(--line);}
+    .conv-center{padding:14px 0;}
+  }
+  .convergence-note{
+    font-size:0.95rem;color:var(--text-dim);max-width:60ch;margin-top:20px;
+  }
+
+  /* experience */
+  .role{
+    display:grid;grid-template-columns:150px 1fr;gap:24px;
+    padding:26px 0;border-top:1px solid var(--line);
+  }
+  .role:first-child{border-top:none;padding-top:0;}
+  .role .when{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--text-dim);}
+  .role h3{font-size:1.15rem;font-weight:600;margin:0 0 4px;}
+  .role .org{font-size:0.92rem;color:var(--accent);margin-bottom:10px;}
+  .role p{margin:0 0 10px;color:var(--text-dim);font-size:0.95rem;max-width:58ch;}
+  .role .stake{
+    font-size:0.86rem;color:var(--text-dim);
+    padding:10px 14px;background:var(--bg-raised);
+    border-radius:8px;border-left:2px solid var(--accent);
+  }
+  @media(max-width:640px){.role{grid-template-columns:1fr;gap:6px;}}
+
+  /* projects */
+  .project{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px;
+    margin-bottom:16px;
+  }
+  .project .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.75rem;
+    color:var(--accent);display:block;margin-bottom:12px;
+  }
+  .project h3{font-size:1.25rem;font-weight:600;margin:0 0 12px;}
+  .project p{margin:0 0 18px;color:var(--text-dim);font-size:0.95rem;}
+  .project-meta{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    padding-top:16px;border-top:1px solid var(--line);
+  }
+  .project .status{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--text-dim);}
+  .project .stackline{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--text-dim);}
+
+  /* stack grid */
+  .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .cap-cell{background:var(--bg-raised);padding:24px 26px;}
+  .cap-cell .cap-label{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--text-dim);margin-bottom:12px;}
+  .cap-cell .cap-items{font-size:1.02rem;line-height:1.6;}
+  @media(max-width:640px){.cap-grid{grid-template-columns:1fr;}}
+
+  /* contact */
+  .contact-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .contact-row a{
+    font-size:0.92rem;text-decoration:none;
+    padding:11px 18px;border-radius:8px;
+    border:1px solid var(--line);
+    transition:border-color .15s, color .15s;
+  }
+  .contact-row a:hover{border-color:var(--accent);color:var(--accent);}
+
+  footer{
+    padding:32px 0 56px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--text-dim);
+    display:flex;justify-content:space-between;
+  }
+
+  .status--dim{opacity:0.85;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .btn{transition:none;}
+    .seq-intro{animation:none;display:none;}
+    .seq-main{animation:none;opacity:1;}
+    .marquee-track{animation:none;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  #particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+  header, main, footer{position:relative;z-index:1;}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+  <div class="nav-inner">
+    <span class="mark">ak_</span>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="hero-sequence">
+      <div class="seq-intro" id="seqIntro">
+        <div class="status"><span class="dot"></span>Cairo, Egypt — open to work</div>
+        <h1 class="intro-name">Hey, it's <span class="accent">Ahmed</span>.</h1>
+      </div>
+      <div class="seq-main" id="seqMain">
+        <div class="status status--dim"><span class="dot"></span>Cairo, Egypt — open to work</div>
+        <h1>I build systems that have to <span class="accent">work</span>, and systems that have to <span class="accent">think</span>.</h1>
+        <p class="lede">
+          An ERP/Odoo developer and full-stack software engineer with 2.5+ years delivering
+          enterprise applications across regulated healthcare, fintech, and ERP sectors — including
+          two years keeping an <strong>NHS Wales</strong> system serving 3.6M+ clinical records running
+          with zero critical incidents.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#contact">Get in touch</a>
+          <a class="btn ghost" href="#projects">See the projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Odoo</span><span>Python ORM</span><span>Oracle Integration Cloud</span><span>PL/SQL</span>
+      <span>ASP.NET Core</span><span>.NET 8</span><span>Angular</span><span>React.js</span>
+      <span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Kubernetes</span>
+      <span>Azure DevOps</span><span>C#</span><span>Vue.js</span><span>Entity Framework</span>
+      <span>Odoo</span><span>Python ORM</span><span>Oracle Integration Cloud</span><span>PL/SQL</span>
+      <span>ASP.NET Core</span><span>.NET 8</span><span>Angular</span><span>React.js</span>
+      <span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Kubernetes</span>
+      <span>Azure DevOps</span><span>C#</span><span>Vue.js</span><span>Entity Framework</span>
+    </div>
+  </div>
+
+  <section id="convergence" class="reveal">
+    <div class="eyebrow">profile</div>
+    <h2>Where the two sides meet</h2>
+    <div class="convergence">
+      <div class="conv-col left">
+        <div class="label">enterprise / integration</div>
+        <ul>
+          <li>Oracle Fusion (HCM, SCM), OIC</li>
+          <li>PL/SQL, BI Publisher</li>
+          <li>ASP.NET Core, .NET 8, C#</li>
+          <li>NHS-grade production systems</li>
+        </ul>
+      </div>
+      <div class="conv-center"><div class="node"></div></div>
+      <div class="conv-col right">
+        <div class="label">erp / applied ai</div>
+        <ul>
+          <li>Odoo ORM, QWeb, custom modules</li>
+          <li>LLM integration, agentic architecture</li>
+          <li>FastAPI automation</li>
+          <li>Angular, React, Vue front ends</li>
+        </ul>
+      </div>
+    </div>
+    <p class="convergence-note">
+      The connecting thread is correctness under constraint: healthcare data doesn't forgive
+      shortcuts, and neither do autonomous agents or ERP workflows left unsupervised. Same
+      verification habits, applied across all of it.
+    </p>
+  </section>
+
+  <section id="work" class="reveal">
+    <div class="eyebrow">experience</div>
+    <h2>Where I've worked</h2>
+
+    <div class="role">
+      <div class="when mono">Jun 2026 –<br>Present<br>Remote, Riyadh</div>
+      <div>
+        <h3>ERP/Odoo Developer</h3>
+        <div class="org">Global Solutions</div>
+        <p>Developing and customizing Odoo ERP modules for enterprise clients in a remote,
+        distributed delivery team — working across the Odoo ORM, XML views, and backend
+        business logic to implement client-specific workflows.</p>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when mono">Oct 2023 –<br>Dec 2025<br>Cardiff, UK</div>
+      <div>
+        <h3>Software Developer</h3>
+        <div class="org">Digital Health and Care Wales (NHS Wales)</div>
+        <p>Owned and maintained RadIS, an enterprise radiology information system serving
+        3.6M+ clinical records across multiple NHS health boards, using .NET Core and SQL-based
+        backend services within a Cyber Essentials Plus certified architecture. Modernized the
+        platform with reusable Angular components, delivered a zero-downtime SQL Server to
+        PostgreSQL migration, and standardized Docker deployments across seven environments
+        via Azure DevOps CI/CD.</p>
+        <div class="stake">Stakes: incorrect output here doesn't mean a bad demo, it means a wrong clinical answer — two years, zero critical incidents.</div>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when mono">Mar 2022 –<br>Sep 2022<br>Cairo, Egypt</div>
+      <div>
+        <h3>Frontend Developer</h3>
+        <div class="org">Leaders for Banking Services</div>
+        <p>Built production-grade consumer banking interfaces with React.js integrated against
+        secure RESTful banking APIs, and established a systematic Postman-based API testing
+        process to reduce production defect rates.</p>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when mono">Feb 2026 –<br>Apr 2026<br>Cairo, Egypt</div>
+      <div>
+        <h3>Oracle Technical Consultant (Training)</h3>
+        <div class="org">Truemega Technology Solutions</div>
+        <p>Trained and delivered production work across Oracle Integration Cloud, PL/SQL, Oracle
+        Fusion HCM/SCM, and BI Publisher — the enterprise integration layer most regional dev
+        profiles skip entirely.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="eyebrow">projects</div>
+    <h2>Key projects</h2>
+
+    <div class="project">
+      <span class="tag">erp / odoo</span>
+      <h3>Odoo Hospital Management Module</h3>
+      <p>A custom Odoo module digitizing core hospital operations — patient records, appointment
+      scheduling, and doctor assignment — built on Odoo's ORM with inherited views and
+      workflow states matching real hospital processes (intake, consultation, billing), backed
+      by security groups and record rules.</p>
+      <div class="project-meta">
+        <span class="status">Ongoing refinement — Global Solutions</span>
+        <span class="stackline">Odoo ORM · XML Views · QWeb</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">integration</span>
+      <h3>OIC Inventory Integration</h3>
+      <p>A production Oracle Integration Cloud pipeline: extracts completed inventory transactions
+      from Oracle Fusion via SOAP, validates on-hand quantities through Fusion REST, conditionally
+      triggers restock transactions below threshold, executes inter-org transfers, and logs every
+      result to ATP — full ERP integration across SOAP, REST, database, and business-logic layers.</p>
+      <div class="project-meta">
+        <span class="status">Delivered — Truemega Technology Solutions</span>
+        <span class="stackline">Oracle Integration Cloud · PL/SQL · ATP</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">healthcare</span>
+      <h3>Enterprise Emergency Department Module</h3>
+      <p>An MVC web application digitizing ED patient intake and triage workflows, built with
+      Angular and .NET Core, using reusable component libraries and real-time REST
+      synchronization across clinical teams.</p>
+      <div class="project-meta">
+        <span class="status">Delivered — NHS Wales</span>
+        <span class="stackline">Angular · .NET Core · REST APIs</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">healthcare</span>
+      <h3>RadIS Go — High-Performance Patient Search</h3>
+      <p>A clinical search engine delivering sub-second queries across 1M+ patient records, with
+      a JavaScript front end powered by Go backend services integrating radiology and clinical
+      REST APIs.</p>
+      <div class="project-meta">
+        <span class="status">Delivered — NHS Wales</span>
+        <span class="stackline">Go · JavaScript · REST APIs</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">agent system</span>
+      <h3>LinkedIn Automation Agent</h3>
+      <p>A six-phase agent architecture automating LinkedIn workflows end-to-end — from
+      browser-level interaction to decision-making driven by the Anthropic Claude API. Built to
+      explore how far an agent can be trusted to act unsupervised, and where it still needs a
+      human checkpoint.</p>
+      <div class="project-meta">
+        <span class="status">In active development — 6-phase architecture</span>
+        <span class="stackline">FastAPI · Playwright · SQLModel · Claude API</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">blockchain</span>
+      <h3>UniCertify — Blockchain Document Verification</h3>
+      <p>A full-stack platform issuing and verifying tamper-proof academic certificates using
+      Solidity smart contracts on Ethereum with IPFS decentralized storage — Swansea University
+      dissertation project, graded First Class.</p>
+      <div class="project-meta">
+        <span class="status">Dissertation — First Class</span>
+        <span class="stackline">Solidity · Ethereum · IPFS</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">discord bot</span>
+      <h3>WizSpells</h3>
+      <p>A bilingual Arabic/English Discord RPG for an Egyptian Harry Potter–themed community —
+      character systems, spell mechanics, dueling, and progression, with admin tooling built
+      alongside it.</p>
+      <div class="project-meta">
+        <span class="status">Stage 9 of 10 — QA &amp; deployment remaining</span>
+        <span class="stackline">Python · discord.py · SQLite3</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" class="reveal">
+    <div class="eyebrow">capability</div>
+    <h2>Full range</h2>
+    <div class="cap-grid">
+      <div class="cap-cell">
+        <div class="cap-label">erp / odoo</div>
+        <div class="cap-items">Python ORM · XML Views &amp; Inheritance · QWeb · Business Workflows</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">erp / oracle</div>
+        <div class="cap-items">Oracle Fusion (HCM, SCM) · Oracle Integration Cloud · PL/SQL · BI Publisher</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">backend / .net</div>
+        <div class="cap-items">ASP.NET Core · .NET 8 · Microservices · Node.js · Entity Framework</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">frontend</div>
+        <div class="cap-items">Angular · React.js · Vue.js · Tailwind CSS · Bootstrap</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">databases</div>
+        <div class="cap-items">PostgreSQL · Oracle Database · SQL Server · SQLite3</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">devops / cloud</div>
+        <div class="cap-items">Azure DevOps · CI/CD · Docker · Kubernetes · Git</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">standards</div>
+        <div class="cap-items">NHS Cyber Essentials · UK GDPR Compliant · Agile/Scrum</div>
+      </div>
+      <div class="cap-cell">
+        <div class="cap-label">ai &amp; automation</div>
+        <div class="cap-items">LLM Integration · Agentic Architecture · FastAPI Automation</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="eyebrow">contact</div>
+    <h2>Let's talk</h2>
+    <p class="lede" style="margin-bottom:28px;">
+      Open to ERP/Odoo and Oracle integration roles across Egypt and the Gulf, plus global
+      opportunities where the .NET and applied-AI experience is the better fit.
+    </p>
+    <div class="contact-row">
+      <a href="mailto:Ahmed3li.kh@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/ahmed3li-khatib" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Ahmedd3ly" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://leetcode.com/u/HChW7O65Tm/" target="_blank" rel="noopener">LeetCode</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>Ahmed Khatib — Cairo, Egypt</span>
+  <span>2026</span>
+</footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+
+<script>
+(function(){
+  var canvas = document.getElementById('particles');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){ return; }
+
+  var ctx = canvas.getContext('2d');
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w, h, particles;
+
+  var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#6EE7B7';
+
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    var bigint = parseInt(hex, 16);
+    return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+  }
+  var rgb = hexToRgb(accent);
+
+  function resize(){
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function initParticles(){
+    var count = Math.min(48, Math.floor((w * h) / 28000));
+    particles = [];
+    for(var i = 0; i < count; i++){
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.4 + 0.6,
+        vy: Math.random() * 0.12 + 0.04,
+        vx: (Math.random() - 0.5) * 0.06,
+        o: Math.random() * 0.35 + 0.12
+      });
+    }
+  }
+
+  function tick(){
+    ctx.clearRect(0, 0, w, h);
+    for(var i = 0; i < particles.length; i++){
+      var p = particles[i];
+      p.y += p.vy;
+      p.x += p.vx;
+      if(p.y > h + 4){ p.y = -4; p.x = Math.random() * w; }
+      if(p.x > w + 4) p.x = -4;
+      if(p.x < -4) p.x = w + 4;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + p.o + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  initParticles();
+  requestAnimationFrame(tick);
+
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      resize();
+      initParticles();
+    }, 200);
+  });
+})();
+</script>
+
+</body>
+</html>
