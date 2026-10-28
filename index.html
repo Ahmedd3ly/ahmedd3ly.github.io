@@ -322,6 +322,26 @@
     .tw-word{animation:none;opacity:1;transform:none;}
   }
 
+
+  /* screenshot carousels */
+  .shots{margin:0 0 20px;}
+  .shots-frame{position:relative;aspect-ratio:16/9;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0d0d0f;}
+  .slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .6s ease;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+  .slide.is-active{opacity:1;pointer-events:auto;}
+  .slide img,.slide object{width:100%;height:100%;object-fit:contain;display:block;border:0;}
+  .slide.ph{border:1px dashed var(--accent-dim);margin:10px;border-radius:8px;inset:0;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--text-dim);text-align:center;padding:16px;}
+  .slide .pdf-fallback{position:absolute;right:10px;bottom:8px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);background:var(--bg);padding:4px 8px;border-radius:6px;}
+  .dots{display:flex;justify-content:center;gap:8px;margin-top:12px;}
+  .dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer;transition:background .2s, transform .2s;}
+  .dots button.is-active{background:var(--accent);transform:scale(1.3);}
+  .dots button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  .proj-links{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 18px;}
+  .proj-links a,.proj-links span{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;text-decoration:none;padding:8px 14px;border:1px solid var(--line);border-radius:8px;color:var(--text);transition:border-color .15s,color .15s;}
+  .proj-links a:hover{border-color:var(--accent);color:var(--accent);}
+  .proj-links span{color:var(--text-dim);border-style:dashed;}
+  .cap-note{font-size:0.82rem;color:var(--text-dim);margin-top:10px;font-family:'IBM Plex Mono',monospace;}
+  .note-small{font-size:0.8rem;color:var(--text-dim);margin:-8px 0 18px;font-family:'IBM Plex Mono',monospace;}
+
   #particles{
     position:fixed;
     inset:0;
@@ -359,10 +379,10 @@
         <div class="status status--dim"><span class="dot"></span>Cairo, Egypt — open to work</div>
         <h1 id="typewriter" class="typewriter"><span id="typewriterText"></span><span class="tw-cursor" id="twCursor">|</span></h1>
         <p class="lede">
-          An ERP/Odoo developer and full-stack software engineer with 2.5+ years delivering
-          enterprise applications across regulated healthcare, fintech, and ERP sectors — including
-          two years keeping an <strong>NHS Wales</strong> system serving 3.6M+ clinical records running
-          with zero critical incidents.
+          An Odoo and .NET developer with 3+ years of software engineering across regulated
+          healthcare, banking, and ERP — including two years keeping an <strong>NHS Wales</strong>
+          system serving 3.6M+ clinical records running with zero critical incidents, and now
+          building Odoo modules at an <strong>Odoo Gold Partner</strong>.
         </p>
         <div class="hero-actions">
           <a class="btn" href="#contact">Get in touch</a>
@@ -374,14 +394,8 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Odoo</span><span>Python ORM</span><span>Oracle Integration Cloud</span><span>PL/SQL</span>
-      <span>ASP.NET Core</span><span>.NET 8</span><span>Angular</span><span>React.js</span>
-      <span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Kubernetes</span>
-      <span>Azure DevOps</span><span>C#</span><span>Vue.js</span><span>Entity Framework</span>
-      <span>Odoo</span><span>Python ORM</span><span>Oracle Integration Cloud</span><span>PL/SQL</span>
-      <span>ASP.NET Core</span><span>.NET 8</span><span>Angular</span><span>React.js</span>
-      <span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Kubernetes</span>
-      <span>Azure DevOps</span><span>C#</span><span>Vue.js</span><span>Entity Framework</span>
+      <span>Odoo</span><span>Python ORM</span><span>QWeb</span><span>Oracle Integration Cloud</span><span>PL/SQL</span><span>ASP.NET Core</span><span>.NET 8</span><span>C#</span><span>xUnit</span><span>Angular</span><span>React.js</span><span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Azure DevOps</span><span>Linux</span><span>Entity Framework Core</span>
+      <span>Odoo</span><span>Python ORM</span><span>QWeb</span><span>Oracle Integration Cloud</span><span>PL/SQL</span><span>ASP.NET Core</span><span>.NET 8</span><span>C#</span><span>xUnit</span><span>Angular</span><span>React.js</span><span>PostgreSQL</span><span>SQL Server</span><span>Docker</span><span>Azure DevOps</span><span>Linux</span><span>Entity Framework Core</span>
     </div>
   </div>
 
@@ -392,10 +406,10 @@
       <div class="conv-col left">
         <div class="label">enterprise / integration</div>
         <ul>
-          <li>Oracle Fusion (HCM, SCM), OIC</li>
-          <li>PL/SQL, BI Publisher</li>
           <li>ASP.NET Core, .NET 8, C#</li>
           <li>NHS-grade production systems</li>
+          <li>Oracle Fusion SCM, OIC</li>
+          <li>PL/SQL, BI Publisher</li>
         </ul>
       </div>
       <div class="conv-center"><div class="node"></div></div>
@@ -405,7 +419,7 @@
           <li>Odoo ORM, QWeb, custom modules</li>
           <li>LLM integration, agentic architecture</li>
           <li>FastAPI automation</li>
-          <li>Angular, React, Vue front ends</li>
+          <li>Angular, React front ends</li>
         </ul>
       </div>
     </div>
@@ -421,13 +435,25 @@
     <h2>Where I've worked</h2>
 
     <div class="role">
-      <div class="when mono">Jun 2026 –<br>Present<br>Remote, Riyadh</div>
+      <div class="when mono">Jun 2026 –<br>Present<br>Remote<br>(Riyadh, KSA)</div>
       <div>
         <h3>ERP/Odoo Developer</h3>
         <div class="org">Global Solutions</div>
-        <p>Developing and customizing Odoo ERP modules for enterprise clients in a remote,
-        distributed delivery team — working across the Odoo ORM, XML views, and backend
-        business logic to implement client-specific workflows.</p>
+        <p>Delivered 14 customisations across 6 enterprise client projects in Python, XML views
+        and QWeb, covering purchase, accounting, sales and inventory workflows, in a remote,
+        distributed delivery team.</p>
+        <div class="stake">Cut purchase-request verification from 15 minutes per batch to under 2 with an automated action and a consolidated reporting wizard. 45+ support and enhancement tickets resolved, median turnaround under 24 hours.</div>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when mono">Feb 2026 –<br>Apr 2026<br>Cairo, Egypt</div>
+      <div>
+        <h3>Oracle Technical Consultant</h3>
+        <div class="org">Truemega Technology Solutions</div>
+        <p>Training programme across Oracle Integration Cloud, PL/SQL, Oracle Fusion HCM/SCM and
+        BI Publisher, finishing with an end-to-end OIC inventory integration — the enterprise
+        integration layer most regional dev profiles skip entirely.</p>
       </div>
     </div>
 
@@ -441,7 +467,8 @@
         backend services within a Cyber Essentials Plus certified architecture. Modernized the
         platform with reusable Angular components, delivered a zero-downtime SQL Server to
         PostgreSQL migration, and standardized Docker deployments across seven environments
-        via Azure DevOps CI/CD.</p>
+        via Azure DevOps CI/CD. Wrote 200+ xUnit tests gating the pipeline and implemented
+        role-based access by clinician role and health board.</p>
         <div class="stake">Stakes: incorrect output here doesn't mean a bad demo, it means a wrong clinical answer — two years, zero critical incidents.</div>
       </div>
     </div>
@@ -456,17 +483,6 @@
         process to reduce production defect rates.</p>
       </div>
     </div>
-
-    <div class="role">
-      <div class="when mono">Feb 2026 –<br>Apr 2026<br>Cairo, Egypt</div>
-      <div>
-        <h3>Oracle Technical Consultant (Training)</h3>
-        <div class="org">Truemega Technology Solutions</div>
-        <p>Trained and delivered production work across Oracle Integration Cloud, PL/SQL, Oracle
-        Fusion HCM/SCM, and BI Publisher — the enterprise integration layer most regional dev
-        profiles skip entirely.</p>
-      </div>
-    </div>
   </section>
 
   <section id="projects" class="reveal">
@@ -475,27 +491,83 @@
 
     <div class="project">
       <span class="tag">erp / odoo</span>
-      <h3>Odoo Hospital Management Module</h3>
-      <p>A custom Odoo module digitizing core hospital operations — patient records, appointment
-      scheduling, and doctor assignment — built on Odoo's ORM with inherited views and
-      workflow states matching real hospital processes (intake, consultation, billing), backed
-      by security groups and record rules.</p>
+      <h3>Odoo 20 Hospital Management Module</h3>
+      <p>A custom Odoo 20 module with 14 models plus extensions of hr.employee, sale.order, res.partner and product: patient registration, appointments, clinical records and inpatient admissions with beds and transfers. Patients live on Odoo contacts via _inherits, company-contract billing splits each bill between company and patient, and doctor scheduling, bed allocation and record locking are enforced by SQL and Python constraints. Secured with record rules, three QWeb PDF reports, Arabic translation (~420 terms), trigram and partial indexes, and a 57-test TransactionCase suite.</p>
+      <div class="shots" data-carousel aria-label="Odoo Hospital Management Module screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active"><img src="assets/demo.gif" alt="Module Walkthrough"></figure>
+          <figure class="slide ph"><img src="assets/hospital-1.png" alt="Patients list view"></figure>
+          <figure class="slide ph"><img src="assets/hospital-2.png" alt="Detailed hospital patient record"></figure>
+          <figure class="slide ph"><img src="assets/hospital-3.png" alt="Appointments list view"></figure>
+          <figure class="slide ph"><img src="assets/hospital-4.png" alt="Appointments calendar view"></figure>
+          <figure class="slide ph"><img src="assets/hospital-5.png" alt="Appointment detailed form view"></figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/hospital-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
+      <div class="proj-links"><a href="https://github.com/Ahmedd3ly/Odoo-Hospital-Management-Module" target="_blank" rel="noopener">GitHub repo →</a></div>
       <div class="project-meta">
-        <span class="status">Ongoing refinement — Global Solutions</span>
-        <span class="stackline">Odoo ORM · XML Views · QWeb</span>
+        <span class="status">Personal build — Global Solutions</span>
+        <span class="stackline">Odoo 20 · Python · PostgreSQL · QWeb</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">backend / .net</span>
+      <h3>Clinical Appointments API</h3>
+      <p>A portfolio API in .NET 8 for clinic appointment booking: Clean Architecture with CQRS, PostgreSQL with overlap-free scheduling enforced at the database level, JWT authentication with role- and resource-based authorisation, Redis-cached availability, Azure Service Bus events, and xUnit + Testcontainers tests. Docker and GitHub Actions CI planned. Synthetic data only.</p>
+      <div class="shots" data-carousel aria-label="Clinical Appointments API screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active">Screenshot (Swagger UI / test run) 1 — placeholder</figure>
+          <figure class="slide ph">Screenshot (architecture diagram) 2 — placeholder</figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/clinical-api-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
+      <div class="proj-links"><span>GitHub repo — coming soon</span></div>
+      <div class="project-meta">
+        <span class="status">In progress — screenshots and repo link to follow</span>
+        <span class="stackline">ASP.NET Core 8 · PostgreSQL · EF Core · xUnit</span>
       </div>
     </div>
 
     <div class="project">
       <span class="tag">integration</span>
       <h3>OIC Inventory Integration</h3>
-      <p>A production Oracle Integration Cloud pipeline: extracts completed inventory transactions
-      from Oracle Fusion via SOAP, validates on-hand quantities through Fusion REST, conditionally
-      triggers restock transactions below threshold, executes inter-org transfers, and logs every
-      result to ATP — full ERP integration across SOAP, REST, database, and business-logic layers.</p>
+      <p>An end-to-end Oracle Integration Cloud flow: extracts completed inventory transactions from Oracle Fusion through a SOAP BI report, stores and queries them in ATP, validates on-hand quantities through Fusion REST, conditionally creates miscellaneous receipts and inter-org transfers, and logs every result to ATP — across SOAP, REST, database and business-logic layers.</p>
+      <div class="shots" data-carousel aria-label="OIC Inventory Integration screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active"><img src="assets/oic-flow.png" alt="OIC Inventory Integration Flow Design"></figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/oic-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
+      <div class="proj-links"><a href="assets/oic-flow.pdf" target="_blank" rel="noopener">Flow diagram (PDF) →</a></div>
       <div class="project-meta">
-        <span class="status">Delivered — Truemega Technology Solutions</span>
-        <span class="stackline">Oracle Integration Cloud · PL/SQL · ATP</span>
+        <span class="status">Oracle Fusion technical training — Truemega Technology Solutions</span>
+        <span class="stackline">Oracle Integration Cloud · SOAP · REST · ATP</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="tag">healthcare</span>
+      <h3>RadIS Go — High-Performance Patient Search</h3>
+      <p>A clinical search engine delivering sub-second queries across 1M+ patient records, with a JavaScript front end powered by Go backend services integrating radiology and clinical REST APIs.</p>
+      <div class="shots" data-carousel aria-label="RadIS Go screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active"><img src="assets/go-web1.jpg" alt="Legacy vs Modernized System"></figure>
+          <figure class="slide ph"><img src="assets/go-web2.png" alt="Light vs Dark modes"></figure>
+          <figure class="slide ph"><img src="assets/go-web3.png" alt="Advanced Search view"></figure>
+          <figure class="slide ph"><img src="assets/go-web4.png" alt="Patient request details"></figure>
+          <figure class="slide ph"><img src="assets/go-web5.png" alt="Patient request history"></figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/radis-go-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
+      <div class="proj-links"><a href="https://github.com/Ahmedd3ly/RadisGoWeb/tree/master" target="_blank" rel="noopener">GitHub repo →</a></div>
+      <div class="project-meta">
+        <span class="status">Delivered — NHS Wales</span>
+        <span class="stackline">Go · JavaScript · REST APIs</span>
       </div>
     </div>
 
@@ -511,30 +583,18 @@
       </div>
     </div>
 
-    <div class="project">
-      <span class="tag">healthcare</span>
-      <h3>RadIS Go — High-Performance Patient Search</h3>
-      <p>A clinical search engine delivering sub-second queries across 1M+ patient records, with
-      a JavaScript front end powered by Go backend services integrating radiology and clinical
-      REST APIs.</p>
-      <div class="project-meta">
-        <span class="status">Delivered — NHS Wales</span>
-        <span class="stackline">Go · JavaScript · REST APIs</span>
-      </div>
-    </div>
-
-    <div class="project">
-      <span class="tag">agent system</span>
-      <h3>LinkedIn Automation Agent</h3>
-      <p>A six-phase agent architecture automating LinkedIn workflows end-to-end — from
-      browser-level interaction to decision-making driven by the Anthropic Claude API. Built to
-      explore how far an agent can be trusted to act unsupervised, and where it still needs a
-      human checkpoint.</p>
-      <div class="project-meta">
-        <span class="status">In active development — 6-phase architecture</span>
-        <span class="stackline">FastAPI · Playwright · SQLModel · Claude API</span>
-      </div>
-    </div>
+    <!-- <div class="project"> -->
+    <!--   <span class="tag">agent system</span> -->
+    <!--   <h3>LinkedIn Automation Agent</h3> -->
+    <!--   <p>A six-phase agent architecture automating LinkedIn workflows end-to-end — from -->
+    <!--   browser-level interaction to decision-making driven by the Anthropic Claude API. Built to -->
+    <!--   explore how far an agent can be trusted to act unsupervised, and where it still needs a -->
+    <!--   human checkpoint.</p> -->
+    <!--   <div class="project-meta"> -->
+    <!--     <span class="status">In active development — 6-phase architecture</span> -->
+    <!--     <span class="stackline">FastAPI · Playwright · SQLModel · Claude API</span> -->
+    <!--   </div> -->
+    <!-- </div> -->
 
     <div class="project">
       <span class="tag">blockchain</span>
@@ -542,6 +602,19 @@
       <p>A full-stack platform issuing and verifying tamper-proof academic certificates using
       Solidity smart contracts on Ethereum with IPFS decentralized storage — Swansea University
       dissertation project, graded First Class.</p>
+      <div class="shots" data-carousel aria-label="UniCertify screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active"><img src="assets/unicertify-1.png" alt="Student view"></figure>
+          <figure class="slide ph"><img src="assets/unicertify-2.png" alt="Student details"></figure>
+          <figure class="slide ph"><img src="assets/unicertify-3.png" alt="Student certificate"></figure>
+          <figure class="slide ph"><img src="assets/unicertify-4.png" alt="System workflow"></figure>
+          <figure class="slide"><object type="application/pdf" data="assets/unicertify-flow.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH" aria-label="UniCertify System Architecture (PDF)"></object><a class="pdf-fallback" href="assets/unicertify-flow.pdf" target="_blank" rel="noopener">Open PDF ↗</a></figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/unicertify-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
+      <div class="proj-links"><a href="https://github.com/Ahmedd3ly/UniCertify-Project/tree/master" target="_blank" rel="noopener">GitHub repo →</a></div>
+      <div class="proj-links"><a href="assets/unicertify-flow.pdf" target="_blank" rel="noopener">System Architecture (PDF) →</a></div>
       <div class="project-meta">
         <span class="status">Dissertation — First Class</span>
         <span class="stackline">Solidity · Ethereum · IPFS</span>
@@ -554,6 +627,16 @@
       <p>A bilingual Arabic/English Discord RPG for an Egyptian Harry Potter–themed community —
       character systems, spell mechanics, dueling, and progression, with admin tooling built
       alongside it.</p>
+      <div class="shots" data-carousel aria-label="WizSpells screenshots">
+        <div class="shots-frame">
+          <figure class="slide ph is-active"><img src="assets/wizspells-1.png" alt="Spells and stats"></figure>
+          <figure class="slide ph"><img src="assets/wizspells-2.png" alt="Dueling club"></figure>
+          <figure class="slide ph"><img src="assets/wizspells-3.png" alt="Mystery easter eggs"></figure>
+          <figure class="slide ph"><img src="assets/wizspells-4.png" alt="Crit hit and crit failure"></figure>
+        </div>
+        <div class="dots" role="tablist" aria-label="Choose screenshot"></div>
+      </div>
+      <!-- To add screenshots: replace a placeholder <figure> with <figure class="slide"><img src="assets/wizspells-1.png" alt="describe the screen"></figure>. Dots update automatically. -->
       <div class="project-meta">
         <span class="status">Stage 9 of 10 — QA &amp; deployment remaining</span>
         <span class="stackline">Python · discord.py · SQLite3</span>
@@ -567,19 +650,20 @@
     <div class="cap-grid">
       <div class="cap-cell">
         <div class="cap-label">erp / odoo</div>
-        <div class="cap-items">Python ORM · XML Views &amp; Inheritance · QWeb · Business Workflows</div>
+        <div class="cap-items">Python ORM · XML Views &amp; Inheritance · QWeb · Wizards · Record Rules · TransactionCase Tests · Arabic Localisation</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">erp / oracle</div>
-        <div class="cap-items">Oracle Fusion (HCM, SCM) · Oracle Integration Cloud · PL/SQL · BI Publisher</div>
+        <div class="cap-items">Oracle Integration Cloud (REST, SOAP, ATP) · Oracle Fusion SCM · PL/SQL · BI Publisher</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">backend / .net</div>
-        <div class="cap-items">ASP.NET Core · .NET 8 · Microservices · Node.js · Entity Framework</div>
+        <div class="cap-items">ASP.NET Core · .NET 8 · C# · Entity Framework Core · xUnit · Token Auth &amp; RBAC</div>
+        <div class="cap-note">building: Clean Architecture · CQRS · Redis · Service Bus</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">frontend</div>
-        <div class="cap-items">Angular · React.js · Vue.js · Tailwind CSS · Bootstrap</div>
+        <div class="cap-items">Angular · React.js · TypeScript · Tailwind CSS · Bootstrap</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">databases</div>
@@ -587,11 +671,11 @@
       </div>
       <div class="cap-cell">
         <div class="cap-label">devops / cloud</div>
-        <div class="cap-items">Azure DevOps · CI/CD · Docker · Kubernetes · Git</div>
+        <div class="cap-items">Azure DevOps · CI/CD · Docker · Azure App Service &amp; Key Vault · Linux (Arch) · Git</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">standards</div>
-        <div class="cap-items">NHS Cyber Essentials · UK GDPR Compliant · Agile/Scrum</div>
+        <div class="cap-items">NHS Cyber Essentials Plus environment · UK GDPR-aligned development · Agile/Scrum</div>
       </div>
       <div class="cap-cell">
         <div class="cap-label">ai &amp; automation</div>
@@ -611,6 +695,8 @@
       <a href="mailto:Ahmed3li.kh@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/ahmed3li-khatib" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/Ahmedd3ly" target="_blank" rel="noopener">GitHub</a>
+      <a href="cv/Ahmed_Khatib_-_ERP_Odoo.pdf" target="_blank" rel="noopener">CV — Odoo</a>
+      <a href="cv/Ahmed_Khatib_-_.NET_Oracle.pdf" target="_blank" rel="noopener">CV — .NET / Oracle</a>
       <a href="https://leetcode.com/u/HChW7O65Tm/" target="_blank" rel="noopener">LeetCode</a>
     </div>
   </section>
@@ -644,7 +730,7 @@
       {w:"I"},{w:"build"},{w:"what"},{w:"has"},{w:"to"},{w:"hold",a:true},{w:"up."}
     ],
     [
-      {w:"Two"},{w:"and"},{w:"a"},{w:"half"},{w:"years."},{w:"Zero"},
+      {w:"Two"},{w:"years."},{w:"Zero"},
       {w:"critical"},{w:"incidents.",a:true}
     ]
   ];
@@ -836,6 +922,42 @@
       resize();
       initParticles();
     }, 200);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var INTERVAL = 4000;
+  document.querySelectorAll('[data-carousel]').forEach(function(root){
+    var slides = Array.prototype.slice.call(root.querySelectorAll('.slide'));
+    var dotsBox = root.querySelector('.dots');
+    if(slides.length < 2){ dotsBox.style.display = 'none'; }
+    var idx = 0, timer = null, dots = [];
+    slides.forEach(function(_, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Show screenshot ' + (i + 1));
+      b.addEventListener('click', function(){ show(i); restart(); });
+      dotsBox.appendChild(b); dots.push(b);
+    });
+    function show(i){
+      idx = (i + slides.length) % slides.length;
+      slides.forEach(function(s, k){ s.classList.toggle('is-active', k === idx); });
+      dots.forEach(function(d, k){ d.classList.toggle('is-active', k === idx); });
+    }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    function start(){ if(reduce || slides.length < 2 || timer) return; timer = setInterval(function(){ show(idx + 1); }, INTERVAL); }
+    function restart(){ stop(); start(); }
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    show(0);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es[0].isIntersecting ? start() : stop(); }, {threshold:0.3}).observe(root);
+    } else { start(); }
   });
 })();
 </script>
