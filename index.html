@@ -102,12 +102,19 @@
   }
   h1 .accent{color:var(--accent);}
 
+  /* Fixed-size stage: every sentence is rendered invisibly in the same grid cell,
+     so the box is always as tall as the longest sentence and the page never jumps. */
   .typewriter{
-    min-height: calc(1.05em * 2);
-    display:flex;
-    flex-wrap:wrap;
-    align-items:baseline;
+    display:grid;
+    align-items:start;
   }
+  .typewriter > *{grid-area:1 / 1;}
+  .tw-ghost{
+    visibility:hidden;
+    pointer-events:none;
+    user-select:none;
+  }
+  .tw-ghost::after{content:"|";margin-left:2px;}
   .tw-word{
     display:inline-block;
     opacity:0;
@@ -733,6 +740,16 @@
       {w:"critical"},{w:"incidents.",a:true}
     ]
   ];
+
+  // Hidden copies of every sentence reserve the height of the longest one
+  var stage = textEl.parentNode;
+  sentences.forEach(function(sent){
+    var ghost = document.createElement('span');
+    ghost.className = 'tw-ghost';
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.textContent = sent.map(function(t){ return t.w; }).join(' ');
+    stage.insertBefore(ghost, textEl);
+  });
 
   if(reduceMotion){
     var first = sentences[0];
